@@ -1,0 +1,91 @@
+---
+description: All tasks using payload cms 3.0
+globs: *.tsx, *.ts
+alwaysApply: false
+---
+
+# Your rule content
+
+# Cursor Project Instructions - Payload CMS 3.0
+
+## Key Import Patterns
+
+```typescript
+// ✅ ALWAYS import types directly from 'payload'
+import type { Block, CollectionConfig, FieldHook } from 'payload'
+
+// ❌ NEVER use the old pattern
+import { FieldHook } from 'payload/types'
+```
+
+## Project Structure
+
+- Collections go in `src/collections/[CollectionName]/index.ts` (default export)
+- Blocks follow this structure:
+  ```
+  src/blocks/
+    BlockName/
+      config.ts       // Block configuration
+      Component.tsx   // Component implementation
+      index.ts        // Exports from module
+  ```
+
+## Block Implementation Pattern
+
+```typescript
+// config.ts
+import type { Block } from 'payload'
+
+export const MyBlock: Block = {
+  slug: 'myBlock',
+  fields: [...],
+  interfaceName: 'MyBlockType', // Important for TypeScript types
+}
+
+// Component.tsx
+import type { MyBlockType } from 'src/payload-types'
+
+type Props = {
+  className?: string
+} & MyBlockType
+
+export const MyBlockComponent: React.FC<Props> = ({...}) => {...}
+
+// index.ts
+export { MyBlock } from './config'
+export { MyBlockComponent } from './Component'
+```
+
+## Common Mistakes to Avoid
+
+1. **Always study existing patterns** before adding new components
+2. **Don't reinvent the wheel** - use existing components (RenderBlocks, etc.)
+3. **Don't create unnecessary files** - reuse existing page components
+4. **Use project path aliases** - `@/components` instead of relative paths
+5. **Don't overengineer TypeScript** - use pragmatic typing when needed
+
+## Payload Local API
+
+```typescript
+// Initialize in server components
+import { getPayload } from 'payload'
+import config from '@/payload.config'
+
+const payload = await getPayload({ config })
+
+// Fetch data
+const events = await payload.find({
+  collection: 'events',
+  where: {
+    status: {
+      equals: 'published',
+    },
+  },
+  sort: 'eventDate',
+  limit: 10,
+})
+```
+
+
+- You can @ files here
+- You can use markdown but dont have to
