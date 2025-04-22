@@ -9,6 +9,11 @@ export const Posts: CollectionConfig = {
   },
   fields: [
     {
+      name: "banner",
+      type: "upload",
+      relationTo: "media",
+    },
+    {
       name: "title",
       type: "text",
     },

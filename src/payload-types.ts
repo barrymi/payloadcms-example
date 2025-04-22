@@ -138,6 +138,7 @@ export interface User {
  */
 export interface Post {
   id: string;
+  banner?: (string | null) | Media;
   title?: string | null;
   content?: {
     root: {
@@ -330,6 +331,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
+  banner?: T;
   title?: T;
   content?: T;
   updatedAt?: T;
