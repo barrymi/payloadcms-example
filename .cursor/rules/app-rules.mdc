@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Your rule content
 
-# Cursor Project Instructions - Payload CMS 3.0
+# Cursor Project Instructions - Payload CMS 3.0 with NextJS 15 using App Router
 
 ## Key Import Patterns
 
